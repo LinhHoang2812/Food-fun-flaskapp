@@ -7,6 +7,8 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 import json
 import os 
 from dotenv import load_dotenv
+
+
 load_dotenv()
 secret_key = os.getenv("SECRET_KEY")
 
@@ -212,6 +214,22 @@ def delete_all_recipe():
         db.session.delete(recipe)
         db.session.commit()
     return "delete all recipes!"
+
+@app.route('/delete-recipe',methods=["POST"])
+def delete_recipe():
+    id = request.get_json()
+    recipe_to_del = Recipes.query.filter_by(user_id=current_user.get_id(),recipe_id = id["id"]).first()
+    db.session.delete(recipe_to_del)
+    db.session.commit()
+    return "delete all recipes!"
+# @app.route('/delete-recipe',methods=["POST"])
+# def delete_recipe():
+#     id = request.get_json()
+#     print(id)
+#     item_to_del = Recipes.query.filter_by(user_id= current_user.get_id(),recipe_id = id["id"]).first()
+#     db.session.delete(item_to_del)
+#     db.session.commit()
+#     return "delete recipe!"
     
     
 @app.route('/save-item',methods=["POST"])
@@ -225,7 +243,6 @@ def save_item():
 @app.route('/delete-item',methods=["POST"])
 def delete_item():
     id = request.get_json()
-    print(id)
     item_to_del = Groceries.query.filter_by(user_id = current_user.get_id(),item_id = id["id"]).first()
     db.session.delete(item_to_del)
     db.session.commit()

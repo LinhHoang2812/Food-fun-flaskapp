@@ -72,11 +72,14 @@ mealsContainer.addEventListener("click", (e) => {
 
 /////// remove each recipe or add all ingredients from one recipe ////////
 mealsContainer.addEventListener("click", (e) => {
-  if (e.target.classList.contains("remove")) {
+  if (e.target.classList.contains("fa-trash")) {
     e.stopPropagation();
     const itemToDelete =
       e.target.parentElement.parentElement.parentElement.parentElement;
     mealsContainer.removeChild(itemToDelete);
+    deleteFromRecipeDB(
+      e.target.parentElement.parentElement.parentElement.dataset.id
+    );
   } else if (e.target.classList.contains("plus-all")) {
     const simpleList = JSON.parse(e.target.parentElement.dataset.list);
     simpleList.forEach((item) => {
@@ -104,6 +107,16 @@ clearAllRecipes.addEventListener("click", () => {
     method: "POST",
   });
 });
+
+/////// delete each recipe from database ///////
+function deleteFromRecipeDB(id) {
+  console.log(id);
+  fetch("/delete-recipe", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id }),
+  });
+}
 
 /////// open and close  grocery list on small screen ///////
 shoppingList.addEventListener("click", () => {
