@@ -9,12 +9,18 @@ import os
 from dotenv import load_dotenv
 
 
+
+
 load_dotenv()
 secret_key = os.getenv("SECRET_KEY")
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = f"{secret_key}"
+app.config['SECRET_KEY'] = "8BYkEfBA6O6donzWlSihBXox7C0sDexter"
+## login manager
+login_manager = LoginManager()
+login_manager.init_app(app)
+
 
 
 ## create database
@@ -65,9 +71,7 @@ db.create_all()
 
 
 
-## login manager
-login_manager = LoginManager()
-login_manager.init_app(app)
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -222,15 +226,7 @@ def delete_recipe():
     db.session.delete(recipe_to_del)
     db.session.commit()
     return "delete all recipes!"
-# @app.route('/delete-recipe',methods=["POST"])
-# def delete_recipe():
-#     id = request.get_json()
-#     print(id)
-#     item_to_del = Recipes.query.filter_by(user_id= current_user.get_id(),recipe_id = id["id"]).first()
-#     db.session.delete(item_to_del)
-#     db.session.commit()
-#     return "delete recipe!"
-    
+
     
 @app.route('/save-item',methods=["POST"])
 def save_item():
