@@ -16,6 +16,7 @@ secret_key = os.getenv("SECRET_KEY")
 
 
 app = Flask(__name__)
+app.secret_key = 'barboncino'
 app.config['SECRET_KEY'] = "8BYkEfBA6O6donzWlSihBXox7C0sDexter"
 ## login manager
 login_manager = LoginManager()
