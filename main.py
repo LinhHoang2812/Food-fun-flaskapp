@@ -6,11 +6,14 @@ from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 import json
 import os 
+from dotenv import load_dotenv
+load_dotenv()
+secret_key = os.getenv("SECRET_KEY")
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
-print(os.environ.get("SECRET_KEY"))
+app.config['SECRET_KEY'] = secret_key
+
 
 ## create database
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///foodfun.db"
