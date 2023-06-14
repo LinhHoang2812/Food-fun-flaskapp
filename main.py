@@ -10,6 +10,7 @@ import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
+print(os.environ.get("SECRET_KEY"))
 
 ## create database
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///foodfun.db"
