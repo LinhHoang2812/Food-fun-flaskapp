@@ -14,3 +14,4 @@ SQLAlchemy==2.0.16
 typing_extensions==4.6.3
 Werkzeug==2.2.2
 WTForms==3.0.1
+visitor==0.1.3
